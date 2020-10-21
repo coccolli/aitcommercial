@@ -3,8 +3,18 @@
     <apiVersion>50.0</apiVersion>
     <isExposed>true</isExposed>
     <targets>
-        <target>lightning__AppPage</target>
         <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
         <target>lightning__HomePage</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="prop1" type="String" />
+            <objects>
+                <object>Account</object>
+                <object>Opportunity</object>
+                <object>Contact</object>
+            </objects>
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>
