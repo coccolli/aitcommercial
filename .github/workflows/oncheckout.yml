@@ -21,6 +21,21 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      - name: Write auth token to file
+        run: 'echo ${{ secrets.DEVHUB_TOKEN }} > token.txt'
+
+      - name: Install Salesforce DX CLI
+        run:
+          wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+          mkdir cli
+          tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
+          ./sfdx-cli/install
+      
+      - name: Auth with DevHub
+        run: 'sfdx force:auth:sfdxurl:store -f token.txt -a DevHub -d'
+
+      - name: Display connected orgs
+        run: 'sfdx force:org:list'
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
