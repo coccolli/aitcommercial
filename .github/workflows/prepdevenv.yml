@@ -35,10 +35,11 @@ jobs:
     - name: Check out the source code
       uses: actions/checkout@v2
 
-    - name: print sratch org def
-      run: |
-        ls
-        pwd
+    - name: create scratch org for testing deploy
+      run: 'sfdx force:org:create -f config/test-scratch-def.json -a scratch-org'
+
+    - name: Validate deployment
+      run: 'sfdx force:source:deploy -u scratch-org -p force-app -c'
     
     
       
