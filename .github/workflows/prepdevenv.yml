@@ -36,7 +36,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: print sratch org def
-      run: 'cat aitcommercial/sfdx-project.json'
+      run: |
+        ls
+        pwd
     
     
       
