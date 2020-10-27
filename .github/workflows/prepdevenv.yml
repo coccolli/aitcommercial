@@ -11,10 +11,32 @@ on:
         required: false
       
 jobs:
-  say_hello:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - run: |
-      echo Hello ${{ github.event.inputs.name }}
-      echo in ${{ github.event.inputs.home }}!
+    - name: Say Hello
+      run: |
+        echo "Hello ${{ github.event.inputs.name }}!"
+        echo "- in ${{ github.event.inputs.home }}!"
+
+    - name: Install Salesforce DX CLI
+      run: |
+        wget https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+        mkdir sfdx-cli
+        tar xJf sfdx-linux-amd64.tar.xz -C sfdx-cli --strip-components 1
+        ./sfdx-cli/install
+
+    - name: Write devhub token to file
+      run: 'echo ${{ secrets.DEVHUB_TOKEN }} > token.txt'
+
+    - name: Auth to dev hub
+      run: 'sfdx force:auth:sfdxurl:store -f token.txt -a DevHub -d'
+
+    - name: Check out the source code
+      uses: actions/checkout@v2
+
+    - name: print sratch org def
+      run: 'echo aitcommercial/sfdx-project.json'
+    
+    
       
