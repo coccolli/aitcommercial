@@ -18,7 +18,7 @@ jobs:
       run: |
         echo "Hello ${{ github.event.inputs.name }}!"
         echo "- in ${{ github.event.inputs.home }}!"
-        echo "Current user $GITHUB_CONTEXT"
+        echo "Current user ${{github.actor}}"
 
     - name: Install Salesforce DX CLI
       run: |
